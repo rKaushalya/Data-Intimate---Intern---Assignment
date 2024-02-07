@@ -28,6 +28,7 @@ const UserController = {
                 //jwt authentication
                 const user = {username:name};
                 const token = jwt.sign(user,process.env.AUTH_TOKEN);
+                res.send({token});
             })
         }catch (e) {
             console.error(e);
