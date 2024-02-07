@@ -43,6 +43,32 @@ const ProductController = {
             console.error(e);
             res.status(500).json({error : 'Something went wrong.!'});
         }
+    },
+    updateProduct : function (req, res, next) {
+        try {
+            const sql = "UPDATE product SET `product_name`=?,`price`=?,`qty`=? WHERE product_id=?";
+            const id = req.params.id;
+            database.query(sql,[req.body.product_name,req.body.price,req.body.qty,id], (error, result)=>{
+                if (error) return res.json({message: "error update data.! "+error});
+                return res.json(result);
+            })
+        }catch (e) {
+            console.error(e);
+            res.status(500).json({error : 'Something went wrong.!'});
+        }
+    },
+    deleteProduct : function (req, res, next) {
+        try {
+            const sql = "DELETE FROM product WHERE product_id=?";
+            const id = req.params.id;
+            database.query(sql,[id], (error, result)=>{
+                if (error) return res.json({message: "error delete data.! "+error});
+                return res.json(result);
+            })
+        }catch (e) {
+            console.error(e);
+            res.status(500).json({error : 'Something went wrong.!'});
+        }
     }
 }
 
